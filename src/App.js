@@ -5,7 +5,7 @@ import Login from "./components/login/Login";
 import Signup from "./components/login/Signup";
 
 import { useSelector } from "react-redux";
-import Mail from "./components/login/Mail/Mail";
+import Mail from './components/Mail/Mail';
 
 function App() {
   // const auth = useContext(AuthContext);
@@ -26,7 +26,7 @@ function App() {
           {!login && <Login />}
         </Route>
         <Route exact path="/Mail">
-          <Mail />
+        <Mail/>
         </Route>
       </Switch>
     </>

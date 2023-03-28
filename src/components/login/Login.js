@@ -1,4 +1,4 @@
-import React, { useContext, useRef,useState } from "react";
+import React, { useRef,useState } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import {
@@ -12,7 +12,7 @@ import {
   MDBInput,
   MDBIcon,
 } from "mdb-react-ui-kit";
-import AuthContext from "../../store/auth-context";
+
 import {useDispatch,useSelector} from 'react-redux';
 import { authActions } from "../../store/redux";
 

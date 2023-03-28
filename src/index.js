@@ -9,16 +9,15 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import store from "./store/redux";
 import { Provider } from "react-redux";
 
-import AuthState from "./store/AuthState";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <AuthState>
+   
       <Provider store={store}>
         <App />
       </Provider>
-    </AuthState>
+   
   </BrowserRouter>
 );
 
