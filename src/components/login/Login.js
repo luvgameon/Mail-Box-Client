@@ -44,15 +44,15 @@ function Login() {
         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDW55X8yrfY3DYfPEVnvQZamzWMl7FuhzE",
         Userdetails
       );
-      console.log(respose);
+
       console.log("User has successfully logged in", respose.data.idToken);
       localStorage.setItem("idToken", respose.data.idToken);
       dispatch(authActions.ongetToken(localStorage.getItem('idToken')));
-      console.log('isauthcheck',isauth);
-      // auth.login(localStorage.getItem("idToken"));
+      
+      
       history.replace("/expenses");
     } catch (error) {
-      console.log(error.response.data.error.message);
+      
       alert(error.response.data.error.message);
     }
 

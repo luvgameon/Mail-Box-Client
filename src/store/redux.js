@@ -15,16 +15,34 @@ const authSlice = createSlice({
     },
   },
 });
+const initialComposeState ={
+  compose:false
+}
+
+
+const ShowComposeSice = createSlice({
+  name:'ShowCompose',
+  initialState: initialComposeState,
+  reducers:{
+    toggleCompose(state)
+    {
+      state.compose=!state.compose
+    }
+
+  }
+})
 
 
 
 const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
+    compose: ShowComposeSice.reducer
   },
 });
 
 export const authActions = authSlice.actions;
+export const ShowComposeActions=ShowComposeSice.actions;
 
 
 

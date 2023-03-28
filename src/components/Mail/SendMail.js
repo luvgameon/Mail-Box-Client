@@ -25,23 +25,34 @@ export default function SendMail() {
       subject: emailsubject.current.value,
       msg: emailmsg,
     };
-    let userEmail = email.current.value;
-    if (userEmail !== null) {
-      userEmail = userEmail.replace("@", "");
-      userEmail = userEmail.replace(".", "");
+    let RecevierEmail = email.current.value;
+    let SenderEmail =localStorage.getItem('email');
+    if (SenderEmail !== null) {
+      SenderEmail = SenderEmail.replace("@", "");
+      SenderEmail = SenderEmail.replace(".", "");
     }
-    const res = await axios.post(
-      `https://mail-chat-box-default-rtdb.firebaseio.com/${userEmail}.json`,
-      MailDetails
-    );
-
-    if (res.status !== 200) {
-      console.log("error");
-    } else {
+    if (RecevierEmail !== null) {
+      RecevierEmail = RecevierEmail.replace("@", "");
+      RecevierEmail = RecevierEmail.replace(".", "");
+    }
+    try {
+      await axios.post(
+        `https://mail-chat-box-default-rtdb.firebaseio.com/${RecevierEmail}/inbox.json`,
+        MailDetails
+      );
+      await axios.post(
+        `https://mail-chat-box-default-rtdb.firebaseio.com/${SenderEmail}/sent.json`,
+        MailDetails
+      );
       console.log("Email Send");
       email.current.value='';
       emailsubject.current.value='';
+      
+    } catch (error) {
+      alert(error);
     }
+   
+ 
   };
 
   return (

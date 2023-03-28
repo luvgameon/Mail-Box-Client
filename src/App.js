@@ -6,6 +6,7 @@ import Signup from "./components/login/Signup";
 
 import { useSelector } from "react-redux";
 import Mail from './components/Mail/Mail';
+import Sent from "./components/Mail/Sent";
 
 function App() {
   // const auth = useContext(AuthContext);
@@ -27,6 +28,9 @@ function App() {
         </Route>
         <Route exact path="/Mail">
         <Mail/>
+        </Route>
+        <Route exact path="/sent">
+        <Sent/>
         </Route>
       </Switch>
     </>
