@@ -1,4 +1,4 @@
-import React, { useRef,useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import {
@@ -13,15 +13,15 @@ import {
   MDBIcon,
 } from "mdb-react-ui-kit";
 
-import {useDispatch,useSelector} from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/redux";
 
 function Login() {
   const [isloading, setisloading] = useState(false);
   // const auth = useContext(AuthContext);
-  const dispatch=useDispatch();
-  const isauth=useSelector((state)=>state.auth)
-  console.log('isauth',isauth);
+  const dispatch = useDispatch();
+  const isauth = useSelector((state) => state.auth);
+  console.log("isauth", isauth);
 
   const history = useHistory();
 
@@ -36,7 +36,7 @@ function Login() {
       password: passref.current.value,
       returnSecureToken: true,
     };
-    localStorage.setItem('email',emailref.current.value);
+    localStorage.setItem("email", emailref.current.value);
     emailref.current.value = "";
     passref.current.value = "";
     try {
@@ -47,49 +47,38 @@ function Login() {
 
       console.log("User has successfully logged in", respose.data.idToken);
       localStorage.setItem("idToken", respose.data.idToken);
-      dispatch(authActions.ongetToken(localStorage.getItem('idToken')));
-      
-      
+      dispatch(authActions.ongetToken(localStorage.getItem("idToken")));
+
       history.replace("/expenses");
     } catch (error) {
-      
       alert(error.response.data.error.message);
     }
 
     //   alert("Password Doesn't Match");
-   
   };
-  const forgetpass =async()=>{
-   
-
-    if(emailref.current.value === "")
-    {
-      alert('please fill Email');
-    }
-    else{
+  const forgetpass = async () => {
+    if (emailref.current.value === "") {
+      alert("please fill Email");
+    } else {
       setisloading(true);
       const details = {
-      requestType:"PASSWORD_RESET",
-      email: emailref.current.value
-     }
-     try {
+        requestType: "PASSWORD_RESET",
+        email: emailref.current.value,
+      };
+      try {
         const response = await axios.post(
           "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyDW55X8yrfY3DYfPEVnvQZamzWMl7FuhzE",
           details
         );
-        if(response.data.email)
-        {
+        if (response.data.email) {
           setisloading(false);
         }
-      
       } catch (error) {
         alert(error.response.data.error.message);
         setisloading(false);
-
       }
-
     }
-  }
+  };
 
   return (
     <form onSubmit={submithandler}>
@@ -123,14 +112,22 @@ function Login() {
                     type="password"
                     ref={passref}
                     required
-                    
                   />
                 </div>
-                
-                {isloading ? <p>Password is resting.. Check Your Mail</p> : <span style={{cursor:"pointer",color:'red'}} className="mx-2" color="tertiary" rippleColor="dark" onClick={forgetpass}>
-                  Froget Password ?
-                </span>}
-                <br/>
+                {isloading ? (
+                  <p>Password is resting.. Check Your Mail</p>
+                ) : (
+                  <span
+                    style={{ cursor: "pointer", color: "red" }}
+                    className="mx-2"
+                    color="tertiary"
+                    rippleColor="dark"
+                    onClick={forgetpass}
+                  >
+                    Froget Password ?
+                  </span>
+                )}
+                <br />
                 <MDBBtn className="mb-4" size="lg" type="submit">
                   Login
                 </MDBBtn>
@@ -151,7 +148,6 @@ function Login() {
                 />
               </MDBCol>
             </MDBRow>
-      
           </MDBCardBody>
         </MDBCard>
       </MDBContainer>

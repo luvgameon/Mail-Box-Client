@@ -14,19 +14,15 @@ export default function SendMail() {
   const email = useRef();
   const emailsubject = useRef();
   let emailmsg;
+
   const onEditorStateChange = (event) => {
     emailmsg = event.getCurrentContent().getPlainText();
-   
   };
   const SendMailhandler = async (event) => {
     event.preventDefault();
-    const MailDetails = {
-      to: email.current.value,
-      subject: emailsubject.current.value,
-      msg: emailmsg,
-    };
+
     let RecevierEmail = email.current.value;
-    let SenderEmail =localStorage.getItem('email');
+    let SenderEmail = localStorage.getItem("email");
     if (SenderEmail !== null) {
       SenderEmail = SenderEmail.replace("@", "");
       SenderEmail = SenderEmail.replace(".", "");
@@ -35,6 +31,15 @@ export default function SendMail() {
       RecevierEmail = RecevierEmail.replace("@", "");
       RecevierEmail = RecevierEmail.replace(".", "");
     }
+
+    const MailDetails = {
+      to: email.current.value,
+      subject: emailsubject.current.value,
+      msg: emailmsg,
+      read: false,
+      from: localStorage.getItem("email"),
+    };
+
     try {
       await axios.post(
         `https://mail-chat-box-default-rtdb.firebaseio.com/${RecevierEmail}/inbox.json`,
@@ -45,14 +50,11 @@ export default function SendMail() {
         MailDetails
       );
       console.log("Email Send");
-      email.current.value='';
-      emailsubject.current.value='';
-      
+      email.current.value = "";
+      emailsubject.current.value = "";
     } catch (error) {
       alert(error);
     }
-   
- 
   };
 
   return (

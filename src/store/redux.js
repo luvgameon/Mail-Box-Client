@@ -5,7 +5,6 @@ const initialAuthState = {
   token: localStorage.getItem("idToken"),
 };
 
-
 const authSlice = createSlice({
   name: "authentication",
   initialState: initialAuthState,
@@ -15,35 +14,46 @@ const authSlice = createSlice({
     },
   },
 });
-const initialComposeState ={
-  compose:false
-}
-
+const initialComposeState = {
+  compose: false,
+};
 
 const ShowComposeSice = createSlice({
-  name:'ShowCompose',
+  name: "ShowCompose",
   initialState: initialComposeState,
-  reducers:{
-    toggleCompose(state)
-    {
-      state.compose=!state.compose
-    }
+  reducers: {
+    toggleCompose(state) {
+      state.compose = !state.compose;
+    },
+  },
+});
+const initialMailState = {
+  Mail: [],
+};
 
-  }
-})
-
-
+const MailSlice = createSlice({
+  name: "Mail",
+  initialState: initialMailState,
+  reducers: {
+    onsendreadmail(state, action) {
+      if (action.payload == null) {
+      } else {
+        state.Mail = action.payload;
+      }
+    },
+  },
+});
 
 const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
-    compose: ShowComposeSice.reducer
+    compose: ShowComposeSice.reducer,
+    Mail: MailSlice.reducer,
   },
 });
 
 export const authActions = authSlice.actions;
-export const ShowComposeActions=ShowComposeSice.actions;
-
-
+export const ShowComposeActions = ShowComposeSice.actions;
+export const MailActions = MailSlice.actions;
 
 export default store;

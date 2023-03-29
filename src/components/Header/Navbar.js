@@ -19,7 +19,7 @@ export default function Navbar() {
   const history = useHistory();
   const logouthandler = () => {
     localStorage.clear();
-    history.replace("./");
+    history.replace("./login");
     dispatch(authActions.ongetToken(localStorage.getItem("idToken")));
   };
 
