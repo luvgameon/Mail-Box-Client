@@ -50,26 +50,29 @@ export default function Inbox() {
     settrigger(!trigger);
   };
 
-  useEffect(() => {
-    const fetch = async () => {
-      const data = await axios.get(
-        `https://mail-chat-box-default-rtdb.firebaseio.com/${SenderEmail}/inbox.json`
-      );
-      const respose = await data.data;
+  const fetch = async () => {
+    const data = await axios.get(
+      `https://mail-chat-box-default-rtdb.firebaseio.com/${SenderEmail}/inbox.json`
+    );
+    const respose = await data.data;
 
-      const trasformData = [];
-      for (const key in respose) {
-        trasformData.push({
-          id: key,
-          read: respose[key].read,
-          msg: respose[key].msg,
-          subject: respose[key].subject,
-          to: respose[key].to,
-          from: respose[key].from,
-        });
-      }
-      dispatch(MailActions.onsendreadmail(trasformData));
-    };
+    const trasformData = [];
+    for (const key in respose) {
+      trasformData.push({
+        id: key,
+        read: respose[key].read,
+        msg: respose[key].msg,
+        subject: respose[key].subject,
+        to: respose[key].to,
+        from: respose[key].from,
+      });
+    }
+    dispatch(MailActions.onsendreadmail(trasformData));
+  };
+
+
+  useEffect(() => {
+   
     fetch();
   }, [dispatch, trigger]);
 

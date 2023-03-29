@@ -10,13 +10,14 @@ import {
   MDBNavbarBrand,
   MDBBtn,
 } from "mdb-react-ui-kit";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions, ShowComposeActions } from "../../store/redux";
 import { Link, useHistory } from "react-router-dom";
 
 export default function Navbar() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const unreadmail = useSelector((state)=>state.Mail.Mail);
   const logouthandler = () => {
     localStorage.clear();
     history.replace("./login");
@@ -27,6 +28,11 @@ export default function Navbar() {
     dispatch(ShowComposeActions.toggleCompose());
   };
   const [showNavColorSecond, setShowNavColorSecond] = useState(false);
+
+  let unreadcnt=0;
+  unreadmail.map((i)=>(i.read?unreadcnt:unreadcnt++))
+  
+  
 
   return (
     <>
@@ -58,7 +64,7 @@ export default function Navbar() {
               <Link to="/Mail">
                 {" "}
                 <MDBBtn className="mx-4" outline color="light">
-                  Inbox
+                  Inbox <sup>{unreadcnt}</sup>
                 </MDBBtn>{" "}
               </Link>
             </MDBNavbarItem>

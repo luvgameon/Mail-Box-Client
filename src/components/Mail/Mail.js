@@ -17,6 +17,7 @@ export default function Mail() {
       {ShowCompose && <SendMail />}
       <br />
       <br />
+      
       <Inbox />
     </>
   );
