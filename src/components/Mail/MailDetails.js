@@ -43,7 +43,7 @@ export default function MailDetails() {
             Subject : <strong>{maildetails.subject}</strong>
           </MDBCardHeader>
           <MDBCardBody className="text-dark">
-            <MDBCardTitle>Messagle</MDBCardTitle>
+            <MDBCardTitle>Message</MDBCardTitle>
             <MDBCardText>{maildetails.msg}</MDBCardText>
           </MDBCardBody>
         </MDBCard>

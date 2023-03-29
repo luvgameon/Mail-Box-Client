@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import axios from "axios";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import {
   MDBBtn,
   MDBContainer,
@@ -35,13 +35,11 @@ function Signup() {
           "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDW55X8yrfY3DYfPEVnvQZamzWMl7FuhzE",
           Userdetails
         );
-  
+
         console.log("User has successfully signed up");
-        
       } catch (error) {
         alert(error.response.data.error.message);
       }
-      
     } else {
       alert("Password Doesn't Match");
     }
@@ -106,10 +104,8 @@ function Signup() {
                   Register
                 </MDBBtn>
                 Already Have An Account
-                <span className="mx-2" color="tertiary" rippleColor="light" >
-                <Link to='/login'>
-                  Login Now
-                </Link> 
+                <span className="mx-2" color="tertiary" rippleColor="light">
+                  <Link to="/login">Login Now</Link>
                 </span>
               </MDBCol>
 
