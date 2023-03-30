@@ -5,7 +5,6 @@ import {
   MDBIcon,
   MDBNavbarNav,
   MDBNavbarItem,
-  MDBNavbarLink,
   MDBNavbarToggler,
   MDBNavbarBrand,
   MDBBtn,
@@ -17,22 +16,34 @@ import { Link, useHistory } from "react-router-dom";
 export default function Navbar() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const unreadmail = useSelector((state)=>state.Mail.Mail);
+  const unreadmail = useSelector((state) => state.Mail.Mail);
+
+//----------------------------------------------->Logout>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
+
   const logouthandler = () => {
     localStorage.clear();
     history.replace("./login");
     dispatch(authActions.ongetToken(localStorage.getItem("idToken")));
   };
 
+
+
+
+//----------------------------------------------->Compose>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
+
+
+
   const toggleCompose = () => {
     dispatch(ShowComposeActions.toggleCompose());
   };
   const [showNavColorSecond, setShowNavColorSecond] = useState(false);
 
-  let unreadcnt=0;
-  unreadmail.map((i)=>(i.read?unreadcnt:unreadcnt++))
-  
-  
+
+  //----------------------------------------------->Unread>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..
+
+  let unreadcnt = 0;
+  unreadmail.map((i) => (i.read ? unreadcnt : unreadcnt++));
+  document.title = `Inbox ${unreadcnt}`;
 
   return (
     <>

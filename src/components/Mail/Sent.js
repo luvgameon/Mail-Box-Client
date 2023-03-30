@@ -12,6 +12,7 @@ import Navbar from "../Header/Navbar";
 import SendMail from "./SendMail";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import usehttp from "../../hooks/use-http";
 export default function Sent() {
   const [trigger, settrigger] = useState(false);
 
@@ -29,25 +30,24 @@ export default function Sent() {
     SenderEmail = SenderEmail.replace(".", "");
   }
   const [outbox, setoutbox] = useState([]);
-  useEffect(() => {
-    const fetch = async () => {
-      const data = await axios.get(
-        `https://mail-chat-box-default-rtdb.firebaseio.com/${SenderEmail}/sent.json`
-      );
-      const respose = await data.data;
-
-      const trasformData = [];
-      for (const key in respose) {
-        trasformData.push({
-          id: key,
-          msg: respose[key].msg,
-          subject: respose[key].subject,
-          to: respose[key].to,
-          from: localStorage.getItem("email"),
-        });
-      }
+  const myfun = (respose) => {
+    const trasformData = [];
+    for (const key in respose) {
+      trasformData.push({
+        id: key,
+        msg: respose[key].msg,
+        subject: respose[key].subject,
+        to: respose[key].to,
+        from: localStorage.getItem("email"),
+      });
       setoutbox(trasformData);
-    };
+    }
+  };
+  const fetch = usehttp(
+    `https://mail-chat-box-default-rtdb.firebaseio.com/${SenderEmail}/sent.json`,
+    myfun
+  );
+  useEffect(() => {
     fetch();
   }, [trigger]);
 

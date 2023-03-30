@@ -28,13 +28,19 @@ function App() {
           {!login && <Login />}
         </Route>
         <Route exact path="/Mail">
-        <Mail/>
+          {login && <Mail/>}
+          {!login && <Redirect to="/login" />}
+        
         </Route>
         <Route exact path="/sent">
-        <Sent/>
+          {login && <Sent/>}
+          {!login && <Redirect to="/login" />}
+        
         </Route>
         <Route exact path="/Maildetails/:id">
-        <MailDetails/>
+         {login &&  <MailDetails/>}
+          {!login && <Redirect to="/login" />}
+       
         </Route>
       </Switch>
     </>

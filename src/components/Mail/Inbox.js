@@ -13,6 +13,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { MailActions } from "../../store/redux";
 import { useHistory } from "react-router-dom";
+import usehttp from "../../hooks/use-http";
 
 export default function Inbox() {
   const dispatch = useDispatch();
@@ -50,12 +51,7 @@ export default function Inbox() {
     settrigger(!trigger);
   };
 
-  const fetch = async () => {
-    const data = await axios.get(
-      `https://mail-chat-box-default-rtdb.firebaseio.com/${SenderEmail}/inbox.json`
-    );
-    const respose = await data.data;
-
+  const datatransformfunction = (respose) => {
     const trasformData = [];
     for (const key in respose) {
       trasformData.push({
@@ -70,10 +66,13 @@ export default function Inbox() {
     dispatch(MailActions.onsendreadmail(trasformData));
   };
 
+  const httpdata = usehttp(
+    `https://mail-chat-box-default-rtdb.firebaseio.com/${SenderEmail}/inbox.json`,
+    datatransformfunction
+  );
 
   useEffect(() => {
-   
-    fetch();
+    httpdata();
   }, [dispatch, trigger]);
 
   return (
